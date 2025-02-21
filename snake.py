@@ -13,12 +13,18 @@ class Snake:
 
     def create_snake(self):
         for i in STARTING_POSITION:
+            self.add_segment(i)
+            
+    def add_segment(self, position):
             snake = turtle.Turtle()
             snake.shape("square")
             snake.color('black')
             snake.penup()
-            snake.goto(i)
+            snake.goto(position)
             self.snake_body.append(snake)
+
+    def extend_segment(self):
+        self.add_segment(self.snake_body[-1].position())
 
     def go_up(self):
         if self.current_direction != 'down':
