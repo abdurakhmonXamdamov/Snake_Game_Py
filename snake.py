@@ -1,61 +1,104 @@
 import turtle
 
-STARTING_POSITION = ((0, 0), (-20, 0), (-40, 0))
+START_POSITIONS = [(0, 0), (-20, 0), (-40, 0)]
 MOVING_DISTANCE = 20
 
-class Snake:
-
-    def __init__(self):
-        self.snake_body = []
-        self.current_direction = 'stop'
+class Snaky:
+    def __init__(self, score_class):
+        self.score = score_class
+        self.snake_body_parts = []
+        self.current_pos  = 'stop'
+        self.snake_speed = 0.12
         self.create_snake()
-        self.head = self.snake_body[0]
+        self.head = self.snake_body_parts[0]
+
+
+    def add_segment(self, position):
+        """
+        this funct creates snake shapes
+        :param position: here comes the START POSITIONS
+        :return: no return value
+        """
+        snake_make = turtle.Turtle('square')
+        snake_make.color('black')
+        snake_make.penup()
+        snake_make.goto(position)
+        self.snake_body_parts.append(snake_make)
 
     def create_snake(self):
-        for i in STARTING_POSITION:
+        """
+        this func combines all snake shapes and create one whole snake in a default size 3
+        :return: no return value
+        """
+        for i in START_POSITIONS:
             self.add_segment(i)
-            
-    def add_segment(self, position):
-            snake = turtle.Turtle()
-            snake.shape("square")
-            snake.color('black')
-            snake.penup()
-            snake.goto(position)
-            self.snake_body.append(snake)
 
-    def extend_segment(self):
-        self.add_segment(self.snake_body[-1].position())
+    def extend(self):
+        self.add_segment(self.snake_body_parts[-1].position())
+
+    def increase_speed(self):
+        if self.snake_speed > 0.04:
+            self.snake_speed -= 0.01
+
+
 
     def go_up(self):
-        if self.current_direction != 'down':
-            self.current_direction = 'up'
+        """
+        this func moves snake upward
+        :return:
+        """
+        if self.current_pos != 'down':
+            self.current_pos = 'up'
 
     def go_down(self):
-        if self.current_direction != 'up':
-            self.current_direction = 'down'
+        """
+        this func moves snake downward
+        :return:
+        """
+        if self.current_pos != 'up':
+            self.current_pos = 'down'
 
     def go_right(self):
-        if self.current_direction != 'left':
-            self.current_direction = 'right'
+        """
+        this one moves snake rightward
+        :return:
+        """
+        if self.current_pos != 'left':
+            self.current_pos = 'right'
 
     def go_left(self):
-        if self.current_direction != 'right':
-            self.current_direction = 'left'
+        """
+        this one moves snake leftward
+        :return:
+        """
+        if self.current_pos != 'right':
+            self.current_pos = 'left'
 
     def move(self):
-        if self.current_direction != 'stop':
-            for seg_num in range(len(self.snake_body) - 1, 0, -1):
-                new_xp = self.snake_body[seg_num - 1].xcor()
-                new_yp = self.snake_body[seg_num - 1].ycor()
-                self.snake_body[seg_num].goto(new_xp, new_yp)
+        """
+        this func first checks the current position of the snake and according to that info it confirms where
+        snake goes up, down, right, left
+        :return:
+        """
+        if self.current_pos != 'stop':
+            for seg_num in range(len(self.snake_body_parts) - 1, 0, -1):
+                new_x = self.snake_body_parts[seg_num - 1].xcor()
+                new_y = self.snake_body_parts[seg_num - 1].ycor()
+                self.snake_body_parts[seg_num].goto(new_x, new_y)
 
             self.head.forward(MOVING_DISTANCE)
 
-        if self.current_direction == "up":
+        if self.current_pos == 'up':
             self.head.setheading(90)
-        elif self.current_direction == "down":
+        elif self.current_pos == 'down':
             self.head.setheading(270)
-        elif self.current_direction == "left":
-            self.head.setheading(180)
-        elif self.current_direction == "right":
+        elif self.current_pos == 'right':
             self.head.setheading(0)
+        elif self.current_pos == 'left':
+            self.head.setheading(180)
+
+    def freeze(self):
+        self.score.is_paused = True
+
+    def unfreeze(self):
+        self.score.is_paused = False
