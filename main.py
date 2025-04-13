@@ -6,7 +6,7 @@ from score import Score
 
 sc = turtle.Screen()
 sc.title("Snake game by Me")
-sc.bgcolor('DodgerBlue4')
+sc.bgcolor('orchid2')
 sc.setup(width=600, height=600)
 sc.tracer(0)
 
