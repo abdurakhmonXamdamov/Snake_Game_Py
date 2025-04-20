@@ -9,7 +9,7 @@ class Score(Turtle):
         self.penup()
         self.hideturtle()
         self.goto(0, 265)
-        self.is_paused = False
+        self.is_paused = False 
 
         self.message_turtle = Turtle()
         self.message_turtle.hideturtle()
@@ -19,10 +19,10 @@ class Score(Turtle):
         with open("snake_score_recorder.txt", "r") as sk:
             self.high_score = int(sk.read())
 
-        self.updateScore()
+        self.update_score()
 
 
-    def updateScore(self):
+    def update_score(self):
         """Updates the score every time the snake hits the ball"""
 
         if self.scoree > self.high_score:
@@ -33,12 +33,12 @@ class Score(Turtle):
 
         self.clear()
         self.write("Score: {}   High Score: {}".format(self.scoree, self.high_score), align="center",
-                   font=("Courier", 24, "normal"))
+                    font=("Courier", 24, "normal"))
 
     def increaseScore(self):
         """Increases the score when the snake eats the ball"""
         self.scoree += 1
-        self.updateScore()
+        self.update_score()
 
     def game_over(self):
         """Shows 'Game Over'"""
@@ -56,3 +56,10 @@ class Score(Turtle):
     def game_resumed(self):
         """Clears pause message on resume"""
         self.message_turtle.clear()
+
+    def destroy(self):
+        self.clear()
+        self.hideturtle()
+        self.message_turtle.clear()
+        self.message_turtle.hideturtle()
+

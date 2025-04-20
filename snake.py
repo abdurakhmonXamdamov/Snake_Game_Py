@@ -102,3 +102,16 @@ class Snaky:
 
     def unfreeze(self):
         self.score.is_paused = False
+    
+    def reset_snake(self):
+        for segment in self.snake_body_parts:
+            segment.goto(1000, 1000)  
+        self.snake_body_parts.clear()
+        self.create_snake()
+        self.head = self.snake_body_parts[0]
+        self.snake_speed = 0.12
+
+    def destroy(self):
+        for segment in self.snake_body_parts:
+            segment.hideturtle()
+        self.snake_body_parts.clear()
