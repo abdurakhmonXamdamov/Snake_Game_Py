@@ -33,5 +33,5 @@ class SnakeFood(turtle.Turtle):
         self.color(random.choice(self.color_tank))
 
     def destroy(self):
-        self.blinking = False  # prevent further blinking
+        self.blinking = False  
         self.hideturtle()
