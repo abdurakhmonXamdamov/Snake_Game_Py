@@ -11,7 +11,7 @@ class SnakeFood(turtle.Turtle):
                     "purple2", "snow", "yellow", "VioletRed", "sienna"]
         self.speed('fastest')
         self.refresh()
-        self.blinking = True  # new flag
+        self.blinking = True 
         self.blink()
         self.change_Color()
 
@@ -22,7 +22,7 @@ class SnakeFood(turtle.Turtle):
 
     def blink(self):
         if not self.blinking:
-            return  # stops blinking if destroyed
+            return  
         if self.isvisible():
             self.hideturtle()
         else:

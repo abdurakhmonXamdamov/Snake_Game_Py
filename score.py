@@ -4,7 +4,6 @@ class Score(Turtle):
     def __init__(self):
         super().__init__()
         self.scoree = 0
-        self.high_score = 0
         self.color("white")
         self.penup()
         self.hideturtle()
